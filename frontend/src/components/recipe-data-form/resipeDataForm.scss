@@ -1,0 +1,21 @@
+@import "../../assets/styles/styles";
+
+
+.form-container {
+    padding-inline: 120px;
+    justify-content: center;
+
+    .form {
+        width: 60%;
+        height: 100%;
+        background-color: white;
+        padding: 40px;
+        padding-top: 40px;
+
+        .user-input {
+            height: 40px;
+            border-color: rgb(192, 192, 192);
+        }
+
+    }
+}
