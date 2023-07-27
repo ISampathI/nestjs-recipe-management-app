@@ -1,16 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserLoginDto } from 'src/user/dto/userLogin.dto';
 import { Repository } from 'typeorm';
 import { userRegisterDto } from './dot/userRegister.dto';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async userLogin(loginData: UserLoginDto) {
@@ -23,9 +30,14 @@ export class AuthService {
     const isMatch = await bcrypt.compare(loginData.password, user.password);
     if (isMatch) {
       delete user.password;
-      return user;
+      const payload = { sub: user.id, username: user.username };
+
+      return {
+        access_token: await this.jwtService.signAsync(payload),
+        user,
+      };
     }
-    throw new NotFoundException('Incorect Password');
+    throw new UnauthorizedException();
   }
 
   async userRegister(registerData: userRegisterDto) {

@@ -11,7 +11,6 @@ export interface UserRegister {
 }
 
 export interface User {
-  id: number;
-  username: string;
-  email: string;
+  access_token: string;
+  user: { id: number; username: string; email: string };
 }

@@ -1,3 +1,5 @@
+import { User } from "./userType";
+
 export interface Recipe {
   id: string;
   name: string;
@@ -14,4 +16,6 @@ export interface RecipeForm {
 export interface AppState {
   recipes: Recipe[];
   selectedRecipe: Recipe | null;
+
+  user: User;
 }

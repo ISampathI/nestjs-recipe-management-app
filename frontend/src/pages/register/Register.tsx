@@ -59,7 +59,7 @@ export default function Register() {
               label="Password"
               rules={[{ required: true }]}
             >
-              <Input className="user-input"></Input>
+              <Input type="password" className="user-input"></Input>
             </Form.Item>
             <Form.Item
               className="form-item"
@@ -67,7 +67,7 @@ export default function Register() {
               label="Confirm Password"
               rules={[{ required: true }]}
             >
-              <Input className="user-input"></Input>
+              <Input type="password" className="user-input"></Input>
             </Form.Item>
             <Form.Item className="form-item" style={{ marginTop: "35px" }}>
               <Button

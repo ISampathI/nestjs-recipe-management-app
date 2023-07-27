@@ -14,12 +14,17 @@ const { Title, Paragraph } = Typography;
 
 function UserHome() {
   const recipes = useSelector((state: AppState) => state.recipes); // Retrieve the recipes from the Redux store
+  const user = useSelector((state: AppState) => state.user); // Retrieve the recipes from the Redux store
   const recipe = useSelector((state: AppState) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
   const dispatch = useDispatch();
 
   const getRecipes = async () => {
     await axios
-      .get<Recipe[]>(`${API_ADDRESS}/recipes`)
+      .get<Recipe[]>(`${API_ADDRESS}/recipes/user/${user.user.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         dispatch(setRecipes(res.data));
@@ -31,10 +36,13 @@ function UserHome() {
 
   const handleDelete = async () => {
     let id = recipe?.id;
-    console.log(id);
     
     await axios
-      .delete(`${API_ADDRESS}/recipes/${id}`)
+      .delete(`${API_ADDRESS}/recipes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      })
       .then((res) => {
         getRecipes();
       })

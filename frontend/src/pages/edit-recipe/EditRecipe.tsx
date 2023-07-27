@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Component for create a new recipe
 function EditRecipe() {
+  const user = useSelector((state: AppState) => state.user); // Retrieve the recipes from the Redux store
   const recipe = useSelector((state: AppState) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -27,7 +28,11 @@ function EditRecipe() {
     console.log(formData);
 
     await axios
-      .put(`${API_ADDRESS}/recipes/${recipe?.id}`, formData)
+      .put(`${API_ADDRESS}/recipes/${recipe?.id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         sendMessage("success", "Successfully updated!");

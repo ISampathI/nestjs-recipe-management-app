@@ -6,11 +6,13 @@ import axios from "axios";
 import { Typography, Row, Button, Form, Input, message } from "antd";
 import "./newRecipe.scss";
 import { NoticeType } from "antd/es/message/interface";
-import { RecipeForm } from "../../utils/types/interfaces";
+import { AppState, RecipeForm } from "../../utils/types/interfaces";
 import { API_ADDRESS } from "../../utils/helpers";
+import { useSelector } from "react-redux";
 
 // Component for create a new recipe
 function NewRecipe() {
+  const user = useSelector((state: AppState) => state.user); // Retrieve the recipes from the Redux store
   const [messageApi, contextHolder] = message.useMessage();
 
   const sendMessage = (type: NoticeType, content: string) => {
@@ -23,7 +25,11 @@ function NewRecipe() {
   // Function for send a POST request to add a new recipe
   const handleSubmit = async (formData: RecipeForm) => {
     await axios
-      .post(`${API_ADDRESS}/recipes/`, formData)
+      .post(`${API_ADDRESS}/recipes/`, formData, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         sendMessage("success", "successfully added!");

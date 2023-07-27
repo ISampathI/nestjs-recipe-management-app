@@ -16,3 +16,9 @@
   background: #7ad4a9;
   border-radius: 0.25em;
 }
+
+.ant-card-actions{
+  bottom:0;
+  width: 100%;
+  position: absolute;
+}

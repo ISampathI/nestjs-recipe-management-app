@@ -4,16 +4,22 @@ import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { UserLogin } from "../../utils/types/userType";
 import axios from "axios";
 import { API_ADDRESS } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/actions/userActions ";
 
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [form] = Form.useForm();
 
   const handleSubmit = async (formData: UserLogin) => {
-    console.log(formData);
     await axios
       .post(`${API_ADDRESS}/auth/login`, formData)
       .then((res) => {
-        //navigate("/login");
+        dispatch(setUser(res.data));
+        navigate("/");
       })
       .catch((error) => {});
   };
@@ -49,7 +55,7 @@ function Login() {
               label="Password"
               rules={[{ required: true }]}
             >
-              <Input className="user-input"></Input>
+              <Input type="password" className="user-input"></Input>
             </Form.Item>
             <Form.Item className="form-item" style={{ marginTop: "35px" }}>
               <Button

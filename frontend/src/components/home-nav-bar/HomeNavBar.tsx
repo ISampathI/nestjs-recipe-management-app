@@ -1,16 +1,18 @@
 import React, { ReactNode } from "react";
 import "./homeNavBar.scss";
-import { Typography, Row, Button } from "antd";
-import { SyncOutlined } from "@ant-design/icons";
+import { Typography, Row, Button, Avatar, Dropdown } from "antd";
+import { LogoutOutlined, SyncOutlined, UserOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Recipe } from "../../utils/types/interfaces";
+import { AppState, Recipe } from "../../utils/types/interfaces";
 import { API_ADDRESS } from "../../utils/helpers";
 import { setRecipes } from "../../redux/actions/recipeActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { MenuProps } from "antd";
 
 // NavBar component for rendering a navigation bar
 function HomeNavBar() {
+  const user = useSelector((state: AppState) => state.user); // Retrieve the selected recipe from the Redux store
   const dispatch = useDispatch();
 
   return (
@@ -30,16 +32,32 @@ function HomeNavBar() {
         <LinkTab>About Us</LinkTab>
         <LinkTab>Contacts</LinkTab>
       </Row>
-      <Link to="/login" style={{ marginRight: "1rem" }}>
-        <Button style={{ border: "1px solid #5BC18F", borderRadius: "10px" }}>
-          Login
-        </Button>
-      </Link>
-      <Link to="/register">
-        <Button style={{ borderRadius: "10px" }} type="primary">
-          Register
-        </Button>
-      </Link>
+      {!user ? (
+        <>
+          <Link to="/login" style={{ marginRight: "1rem" }}>
+            <Button
+              style={{ border: "1px solid #5BC18F", borderRadius: "10px" }}
+            >
+              Login
+            </Button>
+          </Link>
+          <Link to="/register">
+            <Button style={{ borderRadius: "10px" }} type="primary">
+              Register
+            </Button>
+          </Link>
+        </>
+      ) : (
+        <Dropdown
+          menu={{ items: userMenuItems }}
+          placement="bottom"
+          arrow={{ pointAtCenter: true }}
+        >
+          <Avatar style={{ backgroundColor: "#5BC18F", cursor: "pointer" }}>
+            {user.user.username.charAt(0)}
+          </Avatar>
+        </Dropdown>
+      )}
     </Row>
   );
 }
@@ -62,3 +80,19 @@ function LinkTab({ children, active }: LinkTabProps) {
     </Typography.Text>
   );
 }
+
+const userMenuItems: MenuProps["items"] = [
+  {
+    key: "1",
+    label: <Link to="user">Profile</Link>,
+    icon: <UserOutlined />,
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "1",
+    label: "Log Out",
+    icon: <LogoutOutlined />,
+  },
+];
