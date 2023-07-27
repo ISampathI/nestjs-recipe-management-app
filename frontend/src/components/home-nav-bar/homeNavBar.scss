@@ -1,0 +1,53 @@
+@import "../../assets/styles/styles";
+
+.HomeNavBar {
+    padding-inline: 40px;
+    height: 3.5rem;
+    align-items: center;
+    position: relative;
+
+    .logo {
+        align-items: center;
+        z-index: 1;
+
+        i {
+            font-size: 1.7rem;
+            color: $primary-color;
+            margin-right: 5px;
+        }
+    }
+
+    .nav {
+        .nav-item{
+            cursor: pointer;
+        }
+        .nav-active {
+            position: relative;
+
+            &::after {
+                content: "";
+                display: flex;
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                left: 50%;
+                border-radius: 5px;
+                transform: translate(calc(50% - 10px));
+                background-color: $primary-color;
+            }
+        }
+    }
+
+    .dec-1 {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 0;
+        top: -35px;
+        background-image: url(../../assets/img/basil-leaves.png);
+        background-size: cover;
+        transform: scale(-1, -1);
+        z-index: -1;
+        opacity: 0.3;
+    }
+}

@@ -1,80 +1,38 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "../../components/nav-bar/NavBar";
-import backImg from "../../assets/img/food-table.webp";
-import RecipeCard from "../../components/recipe-card/RecipeCard";
-import { API_ADDRESS } from "../../utils/helpers";
-import axios from "axios";
-import { setRecipes } from "../../redux/actions/recipeActions";
-import { Col, Row, Typography } from "antd";
+import React from "react";
 import "./home.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { AppState, Recipe } from "../../utils/types/interfaces";
-
-const { Title, Paragraph } = Typography;
+import HomeNavBar from "../../components/home-nav-bar/HomeNavBar";
+import { Button, Col, Typography } from "antd";
 
 function Home() {
-  const recipes = useSelector((state: AppState) => state.recipes); // Retrieve the recipes from the Redux store
-  const recipe = useSelector((state: AppState) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
-  const dispatch = useDispatch();
-
-  const getRecipes = async () => {
-    await axios
-      .get<Recipe[]>(`${API_ADDRESS}/recipes`)
-      .then((res) => {
-        console.log(res);
-        dispatch(setRecipes(res.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleDelete = async () => {
-    let id = recipe?.id;
-    console.log(id);
-    
-    await axios
-      .delete(`${API_ADDRESS}/recipes/${id}`)
-      .then((res) => {
-        getRecipes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    // Fetch recipes when the component mounts
-    getRecipes();
-  }, []);
-
   return (
     <div className="Home">
-      <NavBar></NavBar>
-      <div className="container">
-        <div className="top-banner">
-          <div>
-            <Title style={{ fontSize: "3.5rem", margin: "0", color: "white" }}>
-              HI WELCOME BACK
-            </Title>
-            <Paragraph
-              style={{ fontSize: "1.3rem", margin: "0", color: "white" }}
-            >
-              Total Recipes {recipes.length}
-            </Paragraph>
+      <HomeNavBar></HomeNavBar>
+      <div className="hero-section">
+        <div className="hero-content">
+          <Typography.Text className="hero-title">
+            <span style={{ fontSize: "6rem", fontWeight: "700" }}>W</span>elcome
+            to{" "}
+            <span style={{ color: "#5BC18F", fontWeight: "600" }}>
+              ReciSave
+            </span>
+          </Typography.Text>
+          <Typography.Text className="hero-sub-title">
+            Your Culinary Playground
+          </Typography.Text>
+          <Typography.Text className="hero-para">
+            Step into a culinary wonderland where creativity thrives and flavors
+            unite. Join our global community and let's make every meal an
+            unforgettable experience.
+          </Typography.Text>
+          <Button className="hero-btn" type="primary">
+            GET STARTED
+          </Button>
+        </div>
+        <div className="hero-img">
+          <div className="img">
+            <div className="dec-1"></div>
           </div>
         </div>
-        <Row className="recipes-container" gutter={[40, 20]}>
-          {recipes.map((recipe, index) => {
-            return (
-              <RecipeCard
-                onDelete={handleDelete}
-                key={index}
-                data={recipe}
-              ></RecipeCard>
-            );
-          })}
-        </Row>
       </div>
     </div>
   );
