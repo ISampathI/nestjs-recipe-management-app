@@ -6,6 +6,8 @@ import axios from "axios";
 import { Typography, Row, Button, Form, Input, message } from "antd";
 import "./newRecipe.scss";
 import { NoticeType } from "antd/es/message/interface";
+import { RecipeForm } from "../../utils/types/interfaces";
+import { API_ADDRESS } from "../../utils/helpers";
 
 // Component for create a new recipe
 function NewRecipe() {
@@ -16,6 +18,20 @@ function NewRecipe() {
       type: type,
       content: content,
     });
+  };
+
+  // Function for send a POST request to add a new recipe
+  const handleSubmit = async (formData: RecipeForm) => {
+    await axios
+      .post(`${API_ADDRESS}/recipes/`, formData)
+      .then((res) => {
+        console.log(res.data);
+        sendMessage("success", "successfully added!");
+      })
+      .catch((error) => {
+        console.log(error);
+        sendMessage("error", "Insertion failed!");
+      });
   };
 
   return (
@@ -31,8 +47,9 @@ function NewRecipe() {
             </Typography.Title>
           </div>
         </div>
-        <RecipeDataForm></RecipeDataForm>
+        <RecipeDataForm onSubmit={handleSubmit}></RecipeDataForm>
       </div>
+      {contextHolder}
     </div>
   );
 }

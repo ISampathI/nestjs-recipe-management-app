@@ -7,7 +7,8 @@ import { Route, Routes } from "react-router-dom";
 import NewRecipe from "./pages/new-recipe/NewRecipe";
 import EditRecipe from "./pages/edit-recipe/EditRecipe";
 import ViewRecipe from "./pages/view-recipe/ViewRecipe";
-
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
 
 const theme = {
   token: {
@@ -19,11 +20,15 @@ function App() {
   return (
     <ConfigProvider theme={theme}>
       <div className="App">
-      <Routes>
+        <Routes>
           <Route path="/" element={<Home />}></Route> {/* Home page */}
-          <Route path="/add" element={<NewRecipe />}></Route> {/* Add recipe page */}
-          <Route path="/edit" element={<EditRecipe />}></Route> {/* Edit recipe page */}
-          {/* <Route path="/view" element={<ViewRecipe />}></Route>  */}
+          <Route path="/add" element={<NewRecipe />}></Route>{" "}
+          {/* Add recipe page */}
+          <Route path="/edit" element={<EditRecipe />}></Route>{" "}
+          {/* Edit recipe page */}
+          <Route path="/view" element={<ViewRecipe />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
         </Routes>
       </div>
     </ConfigProvider>

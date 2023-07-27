@@ -2,52 +2,51 @@ import React, { useEffect, useState } from "react";
 import NavBar from "../../components/nav-bar/NavBar";
 import backImg from "../../assets/img/food-table.webp";
 import RecipeCard from "../../components/recipe-card/RecipeCard";
-import ConfirmDialog from "../../components/confirm-dialog/ConfirmDialog";
-// import { useDispatch, useSelector } from "react-redux";
 import { API_ADDRESS } from "../../utils/helpers";
 import axios from "axios";
 import { setRecipes } from "../../redux/actions/recipeActions";
 import { Col, Row, Typography } from "antd";
 import "./home.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState, Recipe } from "../../utils/types/interfaces";
 
 const { Title, Paragraph } = Typography;
 
 function Home() {
-  // const recipes = useSelector((state) => state.recipes); // Retrieve the recipes from the Redux store
-  // const recipe = useSelector((state) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
-  // const dispatch = useDispatch();
+  const recipes = useSelector((state: AppState) => state.recipes); // Retrieve the recipes from the Redux store
+  const recipe = useSelector((state: AppState) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
+  const dispatch = useDispatch();
 
-  const [openDelModal, setOpenDelModal] = useState(false); // Flag to control the visibility of the deletion modal
+  const getRecipes = async () => {
+    await axios
+      .get<Recipe[]>(`${API_ADDRESS}/recipes`)
+      .then((res) => {
+        console.log(res);
+        dispatch(setRecipes(res.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  // Function for send a GET request to get all recipes
-  // const getRecipes = async () => {
-  //   await axios
-  //     .get(`${API_ADDRESS}/recipes`)
-  //     .then((res) => {
-  //       dispatch(setRecipes(res.data));
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const handleDelete = async () => {
+    let id = recipe?.id;
+    console.log(id);
+    
+    await axios
+      .delete(`${API_ADDRESS}/recipes/${id}`)
+      .then((res) => {
+        getRecipes();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  // useEffect(() => {
-  //   // Fetch recipes when the component mounts
-  //   getRecipes();
-  // }, []);
-
-  // // Function for send a DELETE request to delete selected recipe
-  // const handleDelete = async () => {
-  //   let id = recipe._id;
-  //   await axios
-  //     .delete(`${API_ADDRESS}/recipes/${id}`)
-  //     .then((res) => {
-  //       getRecipes();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  useEffect(() => {
+    // Fetch recipes when the component mounts
+    getRecipes();
+  }, []);
 
   return (
     <div className="Home">
@@ -61,19 +60,20 @@ function Home() {
             <Paragraph
               style={{ fontSize: "1.3rem", margin: "0", color: "white" }}
             >
-              Total Recipes 8
+              Total Recipes {recipes.length}
             </Paragraph>
           </div>
         </div>
-        <Row className="recipes-container" gutter={[16, 16]}>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
-          <RecipeCard></RecipeCard>
+        <Row className="recipes-container" gutter={[40, 20]}>
+          {recipes.map((recipe, index) => {
+            return (
+              <RecipeCard
+                onDelete={handleDelete}
+                key={index}
+                data={recipe}
+              ></RecipeCard>
+            );
+          })}
         </Row>
       </div>
     </div>

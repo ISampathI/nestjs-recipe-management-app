@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.ant-form-item-required:before {
+  display: none !important;
+}
+
+.ant-form-item-explain-error{
+  text-align: right;
+}

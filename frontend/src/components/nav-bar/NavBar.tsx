@@ -3,9 +3,28 @@ import "./navBar.scss";
 import { Typography, Row, Button } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { Recipe } from "../../utils/types/interfaces";
+import { API_ADDRESS } from "../../utils/helpers";
+import { setRecipes } from "../../redux/actions/recipeActions";
+import { useDispatch } from "react-redux";
 
 // NavBar component for rendering a navigation bar
 function NavBar({ nav = false }) {
+  const dispatch = useDispatch();
+
+  const getRecipes = async () => {
+    await axios
+      .get<Recipe[]>(`${API_ADDRESS}/recipes`)
+      .then((res) => {
+        console.log(res);
+        dispatch(setRecipes(res.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Row className="NavBar">
       <Link to="/" style={{ marginRight: "auto" }}>
@@ -18,6 +37,7 @@ function NavBar({ nav = false }) {
       </Link>
       <Button
         type="text"
+        onClick={getRecipes}
         icon={<SyncOutlined />}
         style={{ marginRight: "10px" }}
       />
