@@ -7,6 +7,7 @@ import { API_ADDRESS } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/actions/userActions ";
+import Cookies from "js-cookie";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ function Login() {
       .post(`${API_ADDRESS}/auth/login`, formData)
       .then((res) => {
         dispatch(setUser(res.data));
+        Cookies.set("access_token", res.data.access_token, { expires: 1 });
         navigate("/");
       })
       .catch((error) => {});

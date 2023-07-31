@@ -73,7 +73,7 @@ function UserHome() {
           </div>
         </div>
         <Row className="recipes-container" gutter={[40, 20]}>
-          {recipes.map((recipe, index) => {
+          {recipes?.map((recipe, index) => {
             return (
               <RecipeCard
                 onDelete={handleDelete}

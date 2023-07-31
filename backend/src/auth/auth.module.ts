@@ -4,10 +4,11 @@ import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { Password } from 'src/entities/password.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Password]),
     JwtModule.register({
       global: true,
       secret: "hello123!!",

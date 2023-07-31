@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { User } from './entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { Password } from './entities/password.entity';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       username: 'postgres',
       password: 'ADMIN',
       database: 'recisave_db',
-      entities: [Recipe, User],
+      entities: [Recipe, User, Password],
       synchronize: true,
     }),
     UserModule,

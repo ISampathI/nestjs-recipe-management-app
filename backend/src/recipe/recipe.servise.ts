@@ -32,9 +32,9 @@ export class ResipeService {
   }
 
   async createRecipe(dto: RecipeCreateDto, userId: number) {
-    const user = await this.userRepository.findOneBy({ id: userId });
-    const newRecipe = this.recipeRepository.create({ ...dto, user: user });
-    return { mm: this.recipeRepository.save(newRecipe), user, userId };
+    //const user = await this.userRepository.findOneBy({ id: userId });
+    const newRecipe = this.recipeRepository.create({ ...dto, userId:userId });
+    return { mm: this.recipeRepository.save(newRecipe), userId };
   }
 
   async updateRecipe(id: number, dto: RecipeUpdateDto, userId: number) {

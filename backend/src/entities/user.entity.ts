@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Recipe } from './recipe.entity';
+import { Password } from './password.entity';
 
 @Entity()
 export class User {
@@ -11,9 +12,10 @@ export class User {
 
   @Column({ unique: true })
   email: string;
+  
+  @OneToMany(() => Password, (password) => password.user)
+  passwords?: Password[];
 
-  @Column()
-  password: string;
 
   @OneToMany(() => Recipe, (recipe) => recipe.user)
   recipes: Recipe[];

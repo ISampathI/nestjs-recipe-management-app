@@ -9,11 +9,34 @@ import { API_ADDRESS } from "../../utils/helpers";
 import { setRecipes } from "../../redux/actions/recipeActions";
 import { useDispatch, useSelector } from "react-redux";
 import type { MenuProps } from "antd";
+import Cookies from "js-cookie";
+import { access } from "fs";
+import { setUser } from "../../redux/actions/userActions ";
 
 // NavBar component for rendering a navigation bar
 function HomeNavBar() {
   const user = useSelector((state: AppState) => state.user); // Retrieve the selected recipe from the Redux store
   const dispatch = useDispatch();
+
+  const userMenuItems: MenuProps["items"] = [
+    {
+      key: "1",
+      label: <Link to="user">Profile</Link>,
+      icon: <UserOutlined />,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "1",
+      label: "Log Out",
+      icon: <LogoutOutlined />,
+      onClick: () => {
+        dispatch(setUser(null));
+        Cookies.remove("access_token");
+      },
+    },
+  ];
 
   return (
     <Row className="HomeNavBar">
@@ -54,7 +77,7 @@ function HomeNavBar() {
           arrow={{ pointAtCenter: true }}
         >
           <Avatar style={{ backgroundColor: "#5BC18F", cursor: "pointer" }}>
-            {user.user.username.charAt(0)}
+            {user.user.username.slice(0, 2)}
           </Avatar>
         </Dropdown>
       )}
@@ -80,19 +103,3 @@ function LinkTab({ children, active }: LinkTabProps) {
     </Typography.Text>
   );
 }
-
-const userMenuItems: MenuProps["items"] = [
-  {
-    key: "1",
-    label: <Link to="user">Profile</Link>,
-    icon: <UserOutlined />,
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "1",
-    label: "Log Out",
-    icon: <LogoutOutlined />,
-  },
-];
