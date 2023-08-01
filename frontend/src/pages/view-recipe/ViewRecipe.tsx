@@ -12,20 +12,20 @@ function ViewRecipe() {
   const recipe = useSelector((state: AppState) => state.selectedRecipe); // Retrieve the selected recipe from the Redux store
 
   return (
-    <div className="ViewRecipe">
+    <div className="relative w-screen h-screen ViewRecipe">
       <NavBar></NavBar>
-      <div className="container">
-        <div className="top-banner">
-          <div>
+      <div className="view-container  w-screen h-[calc(100vh-3.5rem)] overflow-auto pb-20 overflow-x-hidden">
+        <div className="top-banner  bg-cover bg-no-repeat bg-center h-[100px] md:h-[150px] w-full relative flex flex-col justify-center text-white">
+          <div className="z-10 ">
             <Typography.Title
-              style={{ fontSize: "3.5rem", margin: "0", color: "white" }}
+              className="md:!text-[3.5rem] !m-0 !text-white"
             >
               LET'S COOK
             </Typography.Title>
           </div>
         </div>
-        <Row className="form-container">
-          <Col className="form">
+        <div className="flex justify-center w-full !px-3 form-container sm:!px-14 md:!px-28">
+          <div className="flex flex-col !w-full !h-full !p-10 md:!w-10/12 lg:!w-3/5 form">
             <Typography.Text className="form-text">Recipe Name</Typography.Text>
             <Typography.Text className="form-data">
               {recipe?.name}
@@ -36,11 +36,13 @@ function ViewRecipe() {
               <Typography.Text className="form-data">- {item}</Typography.Text>
             ))}
             <Typography.Text className="form-text">Description</Typography.Text>
-            <Typography.Text className="form-data" style={{lineHeight:"1.7rem"}}>
+            <Typography.Text
+              className="leading-7 form-data"
+            >
               {recipe?.description}
             </Typography.Text>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     </div>
   );

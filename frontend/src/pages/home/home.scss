@@ -1,42 +1,10 @@
 .Home {
     .hero-section {
-
-        .hero-content {
-
-            .hero-title {
-            }
-
-            .hero-sub-title {
-
-            }
-
-            .hero-para {
-     
-            }
-
-            .hero-btn {
-            }
-        }
-
         .hero-img {
-
             .img {
                 background-image: url(../../assets/img/pizza.png);
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                height: 100%;
-                width: 100%;
-                position: relative;
-
                 .dec-1 {
-                    width: 50%;
-                    aspect-ratio: 1/1;
-                    position: absolute;
-                    right: 0px;
-                    bottom: 10%;
                     background-image: url(../../assets/img/basil-leaves.png);
-                    background-size: cover;
                 }
             }
         }

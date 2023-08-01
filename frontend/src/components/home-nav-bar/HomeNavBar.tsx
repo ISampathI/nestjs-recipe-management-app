@@ -39,17 +39,17 @@ function HomeNavBar() {
   ];
 
   return (
-    <Row className="HomeNavBar">
-      <div className="dec-1"></div>
+    <Row className="HomeNavBar px-4 sm:7 md:px-12 h-[3.5rem]  items-center relative">
+      <div className=" dec-1 w-[200px] h-[200px] absolute left-0 top-[-35px] bg-cover z-[-1] opacity-30"></div>
       <Link to="/">
-        <Row className="logo" justify="center">
-          <i className="fa-solid fa-burger"></i>
-          <Typography.Title level={4} style={{ margin: 0, fontWeight: "bold" }}>
+        <Row className="z-10 flex items-center logo">
+          <i className="mr-1 text-[1.7rem] fa-solid fa-burger"></i>
+          <p className="h-full pt-1 m-0 text-xl font-bold">
             ReciSave
-          </Typography.Title>
+          </p>
         </Row>
       </Link>
-      <Row className="nav" style={{ marginInline: "auto" }}>
+      <Row className="hidden mx-auto nav sm:block">
         <LinkTab active={true}>Home</LinkTab>
         <LinkTab>Recipes</LinkTab>
         <LinkTab>About Us</LinkTab>
@@ -57,15 +57,15 @@ function HomeNavBar() {
       </Row>
       {!user ? (
         <>
-          <Link to="/login" style={{ marginRight: "1rem" }}>
+          <Link to="/login" className="ml-auto mr-4 sm:ml-0">
             <Button
-              style={{ border: "1px solid #5BC18F", borderRadius: "10px" }}
+            className="rounded-lg border-[#5BC18F]"
             >
               Login
             </Button>
           </Link>
           <Link to="/register">
-            <Button style={{ borderRadius: "10px" }} type="primary">
+            <Button  className="rounded-lg" type="primary">
               Register
             </Button>
           </Link>
@@ -75,8 +75,9 @@ function HomeNavBar() {
           menu={{ items: userMenuItems }}
           placement="bottom"
           arrow={{ pointAtCenter: true }}
+          className="ml-auto sm:ml-0"
         >
-          <Avatar style={{ backgroundColor: "#5BC18F", cursor: "pointer" }}>
+          <Avatar className="bg-[#5BC18F] cursor-pointer">
             {user.user.username.slice(0, 2)}
           </Avatar>
         </Dropdown>

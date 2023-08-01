@@ -1,26 +1,19 @@
 @import "../../assets/styles/styles";
 
 .HomeNavBar {
-    padding-inline: 40px;
-    height: 3.5rem;
-    align-items: center;
-    position: relative;
-
     .logo {
-        align-items: center;
-        z-index: 1;
+        color: black;
 
         i {
-            font-size: 1.7rem;
             color: $primary-color;
-            margin-right: 5px;
         }
     }
 
     .nav {
-        .nav-item{
+        .nav-item {
             cursor: pointer;
         }
+
         .nav-active {
             position: relative;
 
@@ -39,15 +32,7 @@
     }
 
     .dec-1 {
-        width: 200px;
-        height: 200px;
-        position: absolute;
-        left: 0;
-        top: -35px;
         background-image: url(../../assets/img/basil-leaves.png);
-        background-size: cover;
         transform: scale(-1, -1);
-        z-index: -1;
-        opacity: 0.3;
     }
 }

@@ -31,13 +31,13 @@ function NavBar({ nav = false }) {
   };
 
   return (
-    <Row className="NavBar">
+    <Row className="NavBar px-4 sm:7 md:px-12 h-[3.5rem] items-center">
       <Link to="/" style={{ marginRight: "auto" }}>
-        <Row className="logo" justify="center">
-          <i className="fa-solid fa-burger"></i>
-          <Typography.Title level={4} style={{ margin: 0, fontWeight: "bold" }}>
+      <Row className="z-10 flex items-center logo">
+          <i className="mr-1 text-[1.7rem] fa-solid fa-burger"></i>
+          <p className="h-full pt-1 m-0 text-xl font-bold">
             ReciSave
-          </Typography.Title>
+          </p>
         </Row>
       </Link>
       <Button

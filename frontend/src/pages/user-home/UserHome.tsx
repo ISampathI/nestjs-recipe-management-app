@@ -36,7 +36,7 @@ function UserHome() {
 
   const handleDelete = async () => {
     let id = recipe?.id;
-    
+
     await axios
       .delete(`${API_ADDRESS}/recipes/${id}`, {
         headers: {
@@ -57,12 +57,14 @@ function UserHome() {
   }, []);
 
   return (
-    <div className="UserHome">
+    <div className="relative w-screen h-screen UserHome">
       <NavBar></NavBar>
-      <div className="container">
-        <div className="top-banner">
-          <div>
-            <Title style={{ fontSize: "3.5rem", margin: "0", color: "white" }}>
+      <div className="home-container w-screen h-[calc(100vh-3.5rem)] overflow-auto overflow-x-hidden">
+        <div className="top-banner bg-cover bg-no-repeat bg-center h-[120px] md:h-[200px] w-full relative flex flex-col justify-center text-white">
+          <div className="z-10">
+            <Title
+            className="md:!text-[3.5rem] !m-0 !text-white"
+             >
               HI WELCOME BACK
             </Title>
             <Paragraph
@@ -72,7 +74,7 @@ function UserHome() {
             </Paragraph>
           </div>
         </div>
-        <Row className="recipes-container" gutter={[40, 20]}>
+        <Row className="p-5 px:3 sm:px-10 md:px-12 lg:px-32 recipes-container" gutter={[40, 20]}>
           {recipes?.map((recipe, index) => {
             return (
               <RecipeCard

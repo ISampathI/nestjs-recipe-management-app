@@ -27,12 +27,12 @@ function Login() {
   };
 
   return (
-    <div className="Login">
-      <Row className="container">
-        <div className="side-img"></div>
-        <Row className="login-form">
+    <div className="relative grid w-screen h-screen Login place-content-center">
+      <div className="login-container sm:flex sm:w-[500px] overflow-hidden rounded-2xl bg-white">
+        <div className="w-full bg-cover sm:w-2/5 h-14 sm:h-full side-img"></div>
+        <Row className="w-full p-5 sm:w-3/5 sm:h-full login-form">
           <Typography.Title
-            style={{ marginBottom: "25px", width: "100%", textAlign: "center" }}
+            className="w-full !mb-8 text-center"
             level={2}
           >
             LOGIN
@@ -40,7 +40,7 @@ function Login() {
           <Form
             form={form}
             onFinish={handleSubmit}
-            className="form"
+            className="w-full h-full form"
             layout="vertical"
           >
             <Form.Item
@@ -74,7 +74,7 @@ function Login() {
             </Form.Item>
           </Form>
         </Row>
-      </Row>
+      </div>
     </div>
   );
 }

@@ -1,18 +1,11 @@
 @import "../../assets/styles/styles";
 
 .NavBar {
-    padding-inline: 40px;
-    height: 3.5rem;
-    align-items: center;
     .logo {
-        align-items: center;
-        margin-right: auto;
+        color: black;
 
         i {
-            font-size: 1.3rem;
             color: $primary-color;
-            margin-right: 5px;
-            margin-bottom: -2px;
         }
     }
 }

@@ -53,20 +53,20 @@ function RecipeCard({ data, onDelete }: RecipeCardProps) {
       >
         <p>Are you sure you want to delete this recipe?</p>
       </Modal>
-      <Col span={6}                                                                                                                                                                                     >
+      <Col lg={8} xl={6} sm={12} xxl={24}                                                                                                                                                                           >
         <Card
           hoverable
           onClick={() => {
             dispatch(selectRecipe(data));
           }}
-          style={{ padding: "10px", height: "100%", paddingInline: "0px" }}
+          className="h-full p-4 px-0"
           cover={
-            <Link to="/view" style={{ all: "unset", cursor: "pointer" }}>
+            <Link to="/view" className="cursor-pointer" style={{ all: "unset"}}>
               <img
                 alt="example"
                 height="150px"
                 src={recipeImg}
-                style={{ objectFit: "contain" }}
+                className="object-contain "
               />
             </Link>
           }
@@ -85,7 +85,8 @@ function RecipeCard({ data, onDelete }: RecipeCardProps) {
             <Card.Meta
               title={data.name}
               description={data.description.slice(0, 150) + " ..."}
-              style={{ marginTop: "-20px" }}
+              className="!-mt-5 pb-[20px]"
+        
             />
           </Link>
         </Card>

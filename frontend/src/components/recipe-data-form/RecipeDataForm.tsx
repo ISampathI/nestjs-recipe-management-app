@@ -28,11 +28,11 @@ function RecipeDataForm({
   };
 
   return (
-    <Row className="form-container">
+    <Row className="justify-center px-3 form-container sm:px-14 md:px-28">
       <Form
         form={form}
         onFinish={handleSubmit}
-        className="form"
+        className="w-full h-full p-10 bg-white md:w-10/12 lg:w-3/5 form "
         layout="vertical"
       >
         <Form.Item className="form-item" name="name" label="Recipe Name" rules={[{ required: true }]}>
